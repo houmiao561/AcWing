@@ -56,11 +56,11 @@ void dfs( int x, int y, int s ) { // x是横坐标，y是纵坐标，u是记录�
     dfs(x, y+1, s);
 
     // 放皇后
-    if ( !raw[i] && !cal[i] && !dg[u+i] && !udg[n-u+i] ) {
-        board[u][i] = 'Q';
-        raw[i] = dg[u+i] = udg[n-u+i] = cal[i] = true; // 占领地盘
-        DFS(u+1);
-        raw[i] = dg[u+i] = udg[n-u+i] = cal[i] = false; // 恢复现场
-        board[u][i] = '.';
+    if ( !raw[x] && !cal[y] && !dg[x+y] && !udg[x-y+n] ) {
+        board[x][y] = 'Q';
+        raw[x] = cal[y] = dg[x+y] = udg[x-y+n] = true; // 占领地盘
+        dfs(x, y+1, s+1);
+        raw[x] = cal[y] = dg[x+y] = udg[x-y+n] = false; // 恢复现场
+        board[x][y] = '.';
     }
 }
