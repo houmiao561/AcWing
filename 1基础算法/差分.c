@@ -20,3 +20,35 @@ void AddTest(int l, int r, int c,int testArr[]) {
         testArr[i] += c;
     }
 }
+
+
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n,m;
+int arr[MAXLEN];
+int b[MAXLEN];
+
+int main() {
+    cin >> n >> m;
+    for ( int i = 1; i<=n; i++ ) {
+        cin >> arr[i];
+        b[i] = arr[i] - arr[i-1];
+    }
+    
+    for ( int i = 1; i<=m; i++ ) {
+        int l,r,c;
+        cin >> l >> r >> c;
+        b[l] += c;
+        b[r+1] -= c;
+    }
+    
+    for ( int i = 1; i<=n; i++ ) b[i] += b[i-1];
+    
+    for ( int i = 1; i<=n; i++ ) cout << b[i] << ' ';
+}
