@@ -31,3 +31,30 @@ int LangArr(int arrTest[],int len){ // len = r
     return tempX;
 }
 
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n;
+int arr[MAXLEN];
+int s[MAXLEN]; // 保存每个数出现了几次
+int final = 0;
+
+int main() {
+    cin >> n;
+    for ( int i = 0; i<n; i++ ) cin >> arr[i];
+
+    for ( int i = 0, j = 0; i<n; i++ ) {
+        s[arr[i]]++;
+        while ( s[arr[i]] > 1) {
+            s[arr[j]]--; // 这里是j！！！
+            j++;
+        }
+        final = max(final,i-j+1);
+    }
+    cout << final;
+}
