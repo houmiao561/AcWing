@@ -63,3 +63,31 @@ void TEST( Node* head ) {
     }
     
 }
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+#include <stack>
+#include <cstring>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n;
+int arr[MAXLEN];
+int f[MAXLEN];
+int tt; // 指针
+
+int main() {
+    cin >> n;
+    for (int i = 0; i<n; i++){
+        int x ;
+        cin >> x;
+        while ( tt>0 && f[tt] >= x ) tt--;
+        
+        if (tt) cout << f[tt] << ' ';
+        else cout << -1 << ' ';
+        
+        f[++tt] = x;
+    } 
+}

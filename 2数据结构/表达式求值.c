@@ -159,3 +159,68 @@ SigNode* SigPop( SigNode* head ) {
     free(temp);
     return head;
 }
+
+
+
+
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+#include <stack>
+#include <cstring>
+#include <unordered_map>
+using namespace std;
+const int MAXLEN = 100010;
+stack<int> num;
+stack<char> op;
+string str;
+unordered_map<char,int> pr = { {'+',1},{'-',1},{'*',2},{'/',2} };
+
+void eval() {
+    auto b = num.top(); num.pop();
+    auto a = num.top(); num.pop();
+    auto c = op.top(); op.pop();
+    int x;
+    if (c == '+') x = a+b;
+    else if (c == '-') x = a-b;
+    else if (c == '*') x = a*b;
+    else x = a/b;
+    num.push(x);
+}
+
+int main() {
+    cin >> str;
+    
+    for ( int i = 0; i<str.size(); i++ ) {
+        auto c = str[i];
+        
+        // 如果是数字就连续读入
+        if (isdigit(c)) {
+            int x = 0, j = i;
+            while ( j<str.size() && isdigit(str[j]) ) {
+                x = x*10 + str[j] - '0';
+                j++;
+            }
+            i = j - 1;
+            num.push(x);
+        }
+        // 如果是左括号就塞进去
+        else if ( c == '(' ) op.push(c);
+        // 如果是右括号就计算括号里面的情况
+        else if ( c == ')' ) {
+            while ( op.top() != '(' ) eval();
+            op.pop(); // 将左括号弹出
+        }
+        // 如果是加减乘除就一直计算直到有不同级别的运算符出现
+        else { 
+            while ( !op.empty() && pr[op.top()] >= pr[c]) eval();
+            op.push(c);
+        }
+    }
+    
+    // 处理最后剩余的
+    while (!op.empty()) eval();
+    cout << num.top() << endl;
+}

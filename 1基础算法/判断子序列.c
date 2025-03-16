@@ -26,3 +26,26 @@ void TwoB( int num ) {
     }
     printf("\n");
 }
+
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int MAXLEN = 100010;
+int n,m;
+int a[MAXLEN];
+int b[MAXLEN];
+
+int main() {
+    cin >> n >> m;
+    for ( int i = 0; i<n; i++ ) cin >> a[i];
+    for ( int i = 0; i<m; i++ ) cin >> b[i];
+    
+    int indexA=0, indexB=0;
+    while ( indexB<m && indexA<n ) {
+        if (a[indexA] == b[indexB]) indexA++;
+        indexB++;
+    }
+    if (indexA == n) cout << "Yes";
+    else cout << "No";
+}
