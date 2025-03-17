@@ -101,3 +101,29 @@ int main() {
 
     return 0;
 }
+
+
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+#include <queue>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n,m;
+priority_queue<int, vector<int>, greater<int>> heap;
+
+int main() {
+    cin >> n >> m;
+    for( int i = 0; i<n; i++ ) {
+        int x;
+        cin >> x;
+        heap.push(x);
+    }
+    for( int i = 0; i<m; i++ ) {
+        cout << heap.top() << ' ';
+        heap.pop();
+    }
+}

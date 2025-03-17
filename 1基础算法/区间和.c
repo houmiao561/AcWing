@@ -66,3 +66,33 @@ void AddSize( int l, int r, Node* head ){
       
 }
 
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
+
+int n,m;
+unordered_map<int, int> map; 
+
+int main() {
+    cin >> n >> m;
+    for ( int i = 0; i<n; i++ ) {
+        int x,c;
+        cin >> x >> c;
+        map[x] += c;
+    } // 输入完成
+    
+    for ( int i = 0; i<m; i++ ) { // 次数
+        int l = 0, r = 0, res = 0;
+        cin >> l >> r;
+        for ( l; l<=r; l++ ) {
+            res += map[l];
+        }
+        cout << res << ' ' << endl;
+    }
+    
+    return 0;
+}

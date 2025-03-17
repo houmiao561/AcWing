@@ -29,3 +29,39 @@ int MergeArr( int arr1[], int arr2[], int arr3[], int arr4[], int arr5[] ) {
 
 
 
+// C++
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n;
+struct Range {
+    int l,r;
+    bool operator < (const Range &W) const {
+        return l < W.l ? true : false;
+    }
+}Range[MAXLEN];
+
+int main() {
+    cin >> n;
+    for ( int i = 0; i<n; i++ ) {
+        int l,r;
+        cin >> l >> r;
+        Range[i] = {l,r};
+    }
+    sort(Range, Range+n);
+    
+    int res = 0,ed = -2e9;
+    for(int i = 0; i<n; i++) {
+        if (Range[i].l > ed) {
+            res++;
+            ed = Range[i].r;
+        } else {
+            ed = max(ed, Range[i].r);
+        }
+    }
+    cout << res;
+}
+
+
