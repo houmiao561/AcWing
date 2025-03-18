@@ -67,3 +67,34 @@ int main() {
     return 0;
 }
 
+
+
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n,m;
+int arr[MAXLEN];
+
+int find(int x) {
+    if (arr[x]!=x) arr[x]=find(arr[x]);
+    return arr[x];
+}
+
+int main() {
+    cin >> n >> m;
+    for (int i = 1; i <= n; i ++ ) arr[i] = i;
+    for ( int i = 0; i<m; i++ ) {
+        char x;
+        int a,b;
+        cin >> x >> a >> b;
+        if ( x == 'M' ) {
+            arr[find(a)] = find(b);
+        } else {
+            if (find(a) == find(b)) puts("Yes");
+            else puts("No");
+        }
+    }
+}
