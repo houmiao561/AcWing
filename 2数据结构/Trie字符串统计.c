@@ -49,3 +49,30 @@ int Quary( Node* head, char arr[MAXLEN] ) {
     return sum;
 }
 
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <unordered_map>
+using namespace std;
+
+int n;
+string op;
+string temp;
+unordered_map<string, int> map;
+
+int main() {
+    cin >> n;
+    for ( int i = 0; i<n; i++ ) {
+        cin >> op;
+        cin >> temp;
+        if ( op == "I" ) {
+            map[temp] ++;
+        }
+        if ( op == "Q" ) {
+            cout << map[temp] << endl;
+        }
+    }
+}
