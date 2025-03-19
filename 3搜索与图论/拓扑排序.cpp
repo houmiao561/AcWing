@@ -155,3 +155,83 @@ int main() {
     
     return 0;
 }
+
+
+// 自研TLE版本
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <queue>
+#include <vector>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n,m;
+int rudu[MAXLEN];
+queue<int> que;
+queue<int> finalQue;
+
+
+int main() {
+    cin >> n >> m;
+    vector<vector<int>> vecNodeRudu(n+1); // 保存每个节点的入度
+    vector<vector<int>> vecNodeChudu(n+1);
+    bool visited[n+1];
+    for ( int i = 1; i<=n; i++ ) visited[i] = false;
+    
+    for ( int i = 0; i<m; i++ ) { // 次数
+        int x,y;
+        cin >> x >> y;
+        // chudu[x]++;
+        rudu[y]++;
+        vecNodeChudu[x].push_back(y);
+        vecNodeRudu[y].push_back(x);
+    }
+    
+    for( int i = 1; i<=n; i++ ) {
+        if ( vecNodeRudu[i].size() == 0 ) {
+            que.push(i); // 从i节点开始
+            visited[i] = true;
+            rudu[i]--;
+            break;
+        }
+    }
+    
+    while(que.size()!=0) {
+        auto tempHead = que.front();
+        finalQue.push(tempHead);
+        visited[tempHead] = true;
+        que.pop();
+        
+        for( int i = 0; i<vecNodeChudu[tempHead].size(); i++ ) { 
+            rudu[vecNodeChudu[tempHead][i]] --;
+        }
+        
+        for( int i = 1; i<=n; i++ ) {
+            if ( rudu[i] == 0 && visited[i] == false ) {
+                que.push(i); // 从i节点开始
+                visited[i] = true;
+                break;
+            }
+        }
+    }
+    
+    bool final = true;
+    
+    for( int i = 1; i<=n; i++ ) {
+        if ( visited[i] == false ) {
+            final = false;
+            break;
+        }
+    }
+    
+    if (final == false) {
+        cout << -1 << endl;
+    } else {
+        while(finalQue.size()!=0) {
+            cout << finalQue.front() << ' ';
+            finalQue.pop();
+        }
+    }
+    
+}
