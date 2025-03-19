@@ -60,3 +60,52 @@ int main() {
     return 0;
 }
 
+
+
+// C++
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAXLEN = 100010;
+
+int n,m;
+int arr[MAXLEN];
+int cnt[MAXLEN];
+
+int find(int x) {
+    if (arr[x] != x) arr[x] = find(arr[x]);
+    return arr[x];
+}
+
+int main() {
+    cin >> n >> m;
+    for (int i = 1; i <= n; i ++ )
+    {
+        arr[i] = i;
+        cnt[i] = 1;
+    }
+    for ( int i = 0; i<m; i++ ) {
+        string str;
+        int a,b;
+        cin >> str;
+        if (str == "C") {
+            cin >> a >> b;
+            a = find(a), b = find(b);
+            if (a != b)
+            {
+                arr[a] = b;
+                cnt[b] += cnt[a];
+            }
+        }
+        if (str == "Q1") {
+            cin >> a >> b;
+            if (find(arr[a]) == find(b)) cout << "Yes" << endl;
+            else cout << "No" << endl;
+        }
+        if (str == "Q2") {
+            cin >> a;
+            cout << cnt[find(a)] << endl;
+        }
+    }
+}
